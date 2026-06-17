@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',-apple-system,sans-serif; background:#fff; color:#1a1a2e; }
+  .banner { background:#1d4ed8; color:#fff; text-align:center; padding:10px 16px; font-size:13px; font-weight:600; }
+  .banner b { font-weight:800; }
+
+  /* HERO */
+  .hero { background:linear-gradient(135deg,#fce8d6,#f8d9c4); padding:32px 24px 40px; position:relative; overflow:hidden; }
+  .hero-tag { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#1d4ed8; letter-spacing:.08em; margin-bottom:14px; }
+  .hero h1 { font-size:34px; font-weight:900; line-height:1.18; letter-spacing:-1px; margin-bottom:16px; color:#1a1a2e; }
+  .hero h1 .accent { color:#16a34a; }
+  .hero p { font-size:14px; color:#444; line-height:1.7; margin-bottom:18px; max-width:340px; }
+  .hero p b { color:#1a1a2e; }
+  .btn-primary { display:inline-flex; align-items:center; gap:8px; background:#1d4ed8; color:#fff; font-weight:800; font-size:15px; padding:15px 28px; border-radius:10px; text-decoration:none; box-shadow:0 8px 24px rgba(29,78,216,.3); margin-bottom:12px; }
+  .btn-secondary { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; color:#1a1a2e; margin-bottom:24px; cursor:pointer; }
+  .hero-bottom { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+  .hero-rating { font-size:13px; color:#444; }
+  .hero-rating .stars { color:#f59e0b; font-size:14px; margin-right:6px; }
+  .hero-rating b { font-weight:800; }
+  .hero-img-wrap { display:flex; justify-content:center; margin-top:24px; position:relative; }
+  .hero-img-wrap img { width:78%; max-width:280px; border-radius:18px; }
+  .timer-badge { position:absolute; bottom:-14px; left:8px; background:#fff; border-radius:14px; padding:10px 18px; display:flex; align-items:center; gap:10px; box-shadow:0 8px 24px rgba(0,0,0,.12); }
+  .timer-badge .ic { width:34px;height:34px;background:#fef3c7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px; }
+  .timer-badge .txt b { display:block; font-size:18px; font-weight:900; color:#1a1a2e; line-height:1.1; }
+  .timer-badge .txt span { font-size:10px; color:#888; }
+
+  /* PROBLEMAS */
+  .section { padding:40px 24px; }
+  .section.gray { background:#f7f7fb; }
+  .section h2 { font-size:24px; font-weight:900; text-align:center; margin-bottom:10px; letter-spacing:-.5px; }
+  .section .sub { font-size:13px; color:#777; text-align:center; max-width:380px; margin:0 auto 28px; line-height:1.6; }
+  .probs { display:flex; flex-direction:column; gap:14px; }
+  .prob-card { background:#fff; border-radius:14px; padding:18px 20px; box-shadow:0 2px 12px rgba(0,0,0,.04); display:flex; gap:14px; align-items:flex-start; }
+  .prob-x { width:28px; height:28px; background:#fee2e2; color:#dc2626; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; flex-shrink:0; font-size:14px; }
+  .prob-card h3 { font-size:15px; font-weight:800; margin-bottom:4px; }
+  .prob-card p { font-size:12.5px; color:#888; line-height:1.6; }
+
+  /* MÉTODO */
+  .metodo-wrap { padding:40px 24px; }
+  .metodo-tag { font-size:11px; font-weight:800; color:#ea580c; letter-spacing:.12em; margin-bottom:10px; }
+  .metodo-wrap h2 { font-size:25px; font-weight:900; line-height:1.25; letter-spacing:-.5px; margin-bottom:24px; }
+  .metodo-wrap h2 .accent { color:#ea580c; }
+  .metodo-img { width:100%; border-radius:16px; margin-bottom:24px; display:block; }
+  .metodo-list { display:flex; flex-direction:column; gap:14px; }
+  .metodo-item { display:flex; gap:12px; align-items:flex-start; font-size:13.5px; color:#333; line-height:1.6; }
+  .metodo-item .ck { width:22px; height:22px; background:#fed7aa; color:#ea580c; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:12px; flex-shrink:0; margin-top:1px; }
+
+  /* JORNADA */
+  .jornada { padding:40px 24px; background:#fdfaf6; }
+  .jornada h2 { font-size:24px; font-weight:900; text-align:center; margin-bottom:8px; }
+  .jornada .sub { font-size:13px; color:#888; text-align:center; margin-bottom:28px; }
+  .jornada-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .jornada-card { background:#fff; border-radius:14px; padding:18px; box-shadow:0 2px 12px rgba(0,0,0,.04); position:relative; overflow:hidden; }
+  .jornada-card .days { font-size:10px; font-weight:800; color:#999; letter-spacing:.08em; margin-bottom:2px; }
+  .jornada-card .num { position:absolute; top:6px; right:10px; font-size:34px; font-weight:900; color:#f3f0ea; line-height:1; }
+  .jornada-card h4 { font-size:14.5px; font-weight:800; margin-bottom:6px; }
+  .jornada-card p { font-size:11.5px; color:#999; line-height:1.5; }
+
+  /* DEPOIMENTOS */
+  .depo-section { padding:40px 24px; }
+  .depo-section h2 { font-size:22px; font-weight:900; text-align:center; margin-bottom:28px; }
+  .depo-card { background:#fff; border:1px solid #f0f0f0; border-radius:14px; padding:18px; margin-bottom:14px; box-shadow:0 2px 10px rgba(0,0,0,.03); }
+  .depo-card .stars { color:#f59e0b; font-size:13px; margin-bottom:8px; }
+  .depo-card p { font-size:13px; color:#444; line-height:1.65; margin-bottom:12px; font-style:italic; }
+  .depo-card .name { font-size:13px; font-weight:800; }
+  .depo-card .result { font-size:11.5px; color:#16a34a; font-weight:700; }
+
+  /* OFERTA */
+  .oferta-wrap { background:linear-gradient(160deg,#fbe4d3,#f6f1e9); padding:48px 24px; }
+  .oferta-card { background:#fffdf9; border:1px solid #f0e6d8; border-radius:22px; padding:32px 24px; max-width:440px; margin:0 auto; box-shadow:0 12px 40px rgba(0,0,0,.06); }
+  .oferta-card h2 { font-size:24px; font-weight:900; text-align:center; margin-bottom:6px; }
+  .oferta-card .sub { font-size:13px; color:#888; text-align:center; margin-bottom:22px; }
+  .oferta-list { display:flex; flex-direction:column; gap:13px; margin-bottom:24px; }
+  .oferta-list div { display:flex; gap:10px; align-items:flex-start; font-size:13px; color:#333; line-height:1.5; }
+  .oferta-list .ck2 { width:20px; height:20px; background:#dbeafe; color:#1d4ed8; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:11px; flex-shrink:0; margin-top:1px; }
+  .price-wrap { text-align:center; margin-bottom:20px; }
+  .price-wrap .label { font-size:12px; color:#888; margin-bottom:4px; }
+  .price-wrap .price { font-size:38px; font-weight:900; color:#1d4ed8; letter-spacing:-1px; }
+  .price-wrap .note { font-size:11px; color:#999; margin-top:4px; }
+  .btn-cta { display:block; width:100%; background:#1d4ed8; color:#fff; text-align:center; font-weight:800; font-size:15px; padding:17px; border-radius:12px; text-decoration:none; box-shadow:0 8px 24px rgba(29,78,216,.3); margin-bottom:14px; }
+  .oferta-foot { display:flex; align-items:center; justify-content:center; gap:18px; font-size:11.5px; color:#999; }
+
+  /* GARANTIA */
+  .garantia { padding:28px 24px 48px; }
+  .garantia-box { display:flex; gap:16px; align-items:flex-start; background:#f7f9fc; border-radius:14px; padding:20px; max-width:440px; margin:0 auto; }
+  .garantia-box .shield { width:42px; height:42px; background:#dbeafe; color:#1d4ed8; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+  .garantia-box h4 { font-size:14px; font-weight:800; margin-bottom:4px; }
+  .garantia-box p { font-size:12px; color:#888; line-height:1.6; }
+</style>
+</head>
+<body>
+
+  <div class="banner">🔥 Oferta de lançamento — <b>70% OFF</b> por tempo limitado</div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">⚡ MÉTODO DE TREINO EM CASA FIT</div>
+    <h1>Emagreça em casa com <span class="accent">treinos de 20 min</span></h1>
+    <p>Um plano completo de 20 dias para perder peso sem academia, sem equipamentos e sem dietas malucas. Comece hoje, veja resultados na <b>primeira semana.</b></p>
+    <a href="#oferta" class="btn-primary" onclick="document.getElementById('oferta').scrollIntoView({behavior:'smooth'});return false;">Quero meu ebook agora →</a>
+    <div class="btn-secondary">▶ Ver o método</div>
+    <div class="hero-bottom">
+      <div class="hero-rating"><span class="stars">★★★★★</span><b>4.9</b> · +12.000 alunas transformadas</div>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80" alt="treino"/>
+      <div class="timer-badge">
+        <div class="ic">⏱️</div>
+        <div class="txt"><b>20 min</b><span>por dia, em casa</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEMAS -->
+  <div class="section gray">
+    <h2>Você já tentou de tudo<br>e nada funciona?</h2>
+    <div class="sub">Se você se identifica com pelo menos um destes pontos, este ebook foi feito para você.</div>
+    <div class="probs">
+      <div class="prob-card">
+        <div class="prob-x">✕</div>
+        <div><h3>Sem tempo para academia</h3><p>Rotina cheia entre trabalho, casa e família. Ir treinar virou um luxo.</p></div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-x">✕</div>
+        <div><h3>Cansada de dietas restritivas</h3><p>Começa segunda, abandona na quarta. Sempre volta tudo dobrado.</p></div>
+      </div>
+      <div class="prob-card">
+        <div class="prob-x">✕</div>
+        <div><h3>Falta motivação para começar</h3><p>Você sabe o que precisa fazer, mas não consegue manter a constância.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÉTODO -->
+  <div class="metodo-wrap">
+    <div class="metodo-tag">O QUE VOCÊ RECEBE</div>
+    <h2>Um método simples, prático e que <span class="accent">cabe na sua rotina</span></h2>
+    <img class="metodo-img" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80" alt="módulo"/>
+    <div class="metodo-list">
+      <div class="metodo-item"><div class="ck">✓</div>Plano completo de 20 dias com treinos diários de 15 minutos</div>
+      <div class="metodo-item"><div class="ck">✓</div>Vídeos demonstrativos de cada exercício em alta qualidade</div>
+      <div class="metodo-item"><div class="ck">✓</div>Cardápio simples com receitas práticas e saborosas</div>
+      <div class="metodo-item"><div class="ck">✓</div>Lista de substituições inteligentes para o dia a dia</div>
+      <div class="metodo-item"><div class="ck">✓</div>Planilha de acompanhamento e medidas para ver sua evolução</div>
+      <div class="metodo-item"><div class="ck">✓</div>Comunidade exclusiva no WhatsApp com suporte direto</div>
+    </div>
+  </div>
+
+  <!-- JORNADA -->
+  <div class="jornada">
+    <h2>Sua jornada de 20 dias</h2>
+    <div class="sub">Progressão inteligente — do iniciante ao avançado.</div>
+    <div class="jornada-grid">
+      <div class="jornada-card"><div class="num">01</div><div class="days">DIAS 1–5</div><h4>Ativação</h4><p>Movimentos básicos para acordar o corpo e criar o hábito.</p></div>
+      <div class="jornada-card"><div class="num">02</div><div class="days">DIAS 6–10</div><h4>Aceleração</h4><p>Treinos HIIT curtos que queimam gordura mesmo em repouso.</p></div>
+      <div class="jornada-card"><div class="num">03</div><div class="days">DIAS 11–15</div><h4>Definição</h4><p>Foco em tonificar abdômen, glúteos e pernas.</p></div>
+      <div class="jornada-card"><div class="num">04</div><div class="days">DIAS 16–20</div><h4>Transformação</h4><p>Combine tudo e veja resultados visíveis no espelho.</p></div>
+    </div>
+  </div>
+
+  <!-- DEPOIMENTOS -->
+  <div class="depo-section">
+    <h2>Resultados reais de alunas reais</h2>
+    <div class="depo-card">
+      <div class="stars">★★★★★</div>
+      <p>"Não acreditei quando vi a balança. Treinar 15 minutos parecia pouco, mas funcionou. Voltei a vestir minha calça favorita!"</p>
+      <div class="name">Juliana M.</div><div class="result">−6 kg em 20 dias</div>
+    </div>
+    <div class="depo-card">
+      <div class="stars">★★★★★</div>
+      <p>"O melhor é que cabe na minha rotina. Faço de manhã antes das crianças acordarem. Mudou meu humor por completo."</p>
+      <div class="name">Camila R.</div><div class="result">−4 kg e mais energia</div>
+    </div>
+    <div class="depo-card">
+      <div class="stars">★★★★★</div>
+      <p>"Continuei depois dos 20 dias e os resultados só melhoraram. O cardápio é simples e a comunidade me motiva todos os dias."</p>
+      <div class="name">Beatriz S.</div><div class="result">−8 kg em 30 dias</div>
+    </div>
+  </div>
+
+  <!-- OFERTA -->
+  <div class="oferta-wrap" id="oferta">
+    <div class="oferta-card">
+      <h2>Ebook Emagreça em Casa</h2>
+      <div class="sub">Acesso vitalício + bônus exclusivos</div>
+      <div class="oferta-list">
+        <div><div class="ck2">✓</div>Ebook completo de 20 dias (PDF + Mobile)</div>
+        <div><div class="ck2">✓</div>Vídeos demonstrativos de todos os exercícios</div>
+        <div><div class="ck2">✓</div>Cardápio prático de 4 semanas</div>
+        <div><div class="ck2">✓</div>Bônus: Guia de receitas low carb</div>
+        <div><div class="ck2">✓</div>Bônus: Planilha de medidas e evolução</div>
+        <div><div class="ck2">✓</div>Bônus: Comunidade VIP no WhatsApp</div>
+      </div>
+      <div class="price-wrap">
+        <div class="label">por apenas</div>
+        <div class="price">R$ 25,50</div>
+        <div class="note">pagamento único · acesso vitalício</div>
+      </div>
+      <a href="#" class="btn-cta">QUERO COMEÇAR AGORA →</a>
+      <div class="oferta-foot"><span>🔒 Compra 100% segura</span><span>♥ Acesso imediato</span></div>
+    </div>
+  </div>
+
+  <!-- GARANTIA -->
+  <div class="garantia">
+    <div class="garantia-box">
+      <div class="shield">🛡️</div>
+      <div><h4>Garantia incondicional de 7 dias</h4><p>Se em 7 dias você não estiver satisfeita, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia. O risco é todo nosso.</p></div>
+    </div>
+  </div>
+
+</body>
+</html>
