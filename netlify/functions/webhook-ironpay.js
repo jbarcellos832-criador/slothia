@@ -25,9 +25,14 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         from: "suporte@slothia.space",
         to: emailCliente,
-        subject: "Seu acesso à Slothia 🎉",
-        html: `
-          <h2>Olá! Seu pagamento foi confirmado 🎉</h2>
-          <p>Aqui estão seus dados de acesso:</p>
-          <p><strong>Link:</strong> https://slothia.space/cliente</p>
-          <p><strong>Senha:</strong> cBCCIRQSUk2rJNAe</p>
+        subject: "Seu acesso à Slothia",
+        html: "<h2>Ola! Seu pagamento foi confirmado!</h2><p>Aqui estao seus dados de acesso:</p><p><strong>Link:</strong> https://slothia.space/cliente</p><p><strong>Senha:</strong> cBCCIRQSUk2rJNAe</p><p>Qualquer duvida, responda este email.</p><p>Equipe Slothia</p>"
+      })
+    });
+
+    return { statusCode: 200, body: "OK" };
+
+  } catch (err) {
+    return { statusCode: 500, body: "Erro interno" };
+  }
+};
